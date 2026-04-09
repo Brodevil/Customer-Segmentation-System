@@ -17,18 +17,18 @@ st.set_page_config(layout="wide")
 @st.cache_data
 def load_data():
     try:
-        df = pd.read_csv('data/Mall_Customers.csv')
+        df = pd.read_csv('data/customers.csv')
         df.rename(columns={'Annual Income (k$)': 'Annual Income', 'Spending Score (1-100)': 'Spending Score'}, inplace=True)
         return df
     except FileNotFoundError:
-        st.error("Dataset not found. Please ensure 'mall_customers.csv' is in the 'data' directory.")
+        st.error("Dataset not found. Please ensure 'customers.csv' is in the 'data' directory.")
         return pd.DataFrame()
 
 @st.cache_resource
 def load_artifacts():
     artifacts = {}
     try:
-        with open('models/preprocessor.pkl', 'rb') as f:
+        with open('models/preprocessors.pkl', 'rb') as f:
             artifacts['preprocessor'] = pickle.load(f)
         with open('models/kmeans.pkl', 'rb') as f:
             artifacts['kmeans'] = pickle.load(f)
